@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #E7F2EF;
+    color: #19183B;
+    min-height: 100vh;
+  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #A1C2BD; border-radius: 99px; }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .glass-dark {
+    background: rgba(25,24,59,0.80);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .card {
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-glass;
+  }
+  .btn-primary {
+    @apply bg-dash-1 text-white font-semibold px-5 py-2.5 rounded-xl
+           hover:bg-auth-4 transition-all duration-200 hover:-translate-y-0.5
+           hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed
+           disabled:hover:translate-y-0 disabled:hover:shadow-none;
+  }
+  .btn-secondary {
+    @apply bg-white text-dash-1 font-semibold px-5 py-2.5 rounded-xl
+           border border-dash-3/50 hover:bg-dash-4 transition-all duration-200
+           hover:-translate-y-0.5 disabled:opacity-50;
+  }
+  .btn-danger {
+    @apply bg-red-500 text-white font-semibold px-5 py-2.5 rounded-xl
+           hover:bg-red-600 transition-all duration-200 hover:-translate-y-0.5;
+  }
+  .btn-google {
+    @apply flex items-center justify-center gap-3 w-full py-3 px-5 rounded-xl
+           bg-white border-2 border-gray-200 text-gray-700 font-semibold text-sm
+           hover:bg-gray-50 hover:border-gray-300 hover:shadow-md transition-all duration-200
+           hover:-translate-y-0.5;
+  }
+  .input {
+    @apply w-full bg-white/60 border border-dash-3/40 rounded-xl px-4 py-2.5
+           text-dash-1 placeholder-dash-2/50 text-sm
+           focus:outline-none focus:ring-2 focus:ring-auth-3/50 focus:border-auth-3
+           transition-all duration-200;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 transition-all
+           duration-200 hover:bg-white/10 hover:text-white cursor-pointer text-sm;
+  }
+  .sidebar-link.active { @apply bg-white/15 text-white font-semibold; }
+  .skeleton {
+    background: linear-gradient(90deg, #A1C2BD22 25%, #A1C2BD44 50%, #A1C2BD22 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    @apply rounded-xl;
+  }
+  .emergency-card {
+    @apply bg-red-500 text-white rounded-2xl shadow-emergency;
+    animation: emergencyPulse 1.2s ease-in-out infinite;
+  }
+}
+
+/* Leaflet overrides */
+.leaflet-container { border-radius: 1rem; z-index: 1; font-family: 'Outfit', sans-serif; }
+
+/* Pulse ring for emergency markers */
+@keyframes ring {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.emergency-ring::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: rgba(239,68,68,0.35);
+  animation: ring 1.4s infinite;
+}
+
+/* ─── Upgraded card variants ─── */
+@layer components {
+  .card-gradient {
+    @apply rounded-2xl border border-white/60 shadow-glass backdrop-blur-sm;
+  }
+  .stat-pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  /* Reputation bar fill */
+  .rep-fill {
+    background: linear-gradient(90deg, #7AB2D3, #4A628A);
+  }
+}
+
+/* ─── Smooth skeleton pulse ─── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(161,194,189,0.15) 25%,
+    rgba(161,194,189,0.35) 50%,
+    rgba(161,194,189,0.15) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+}
